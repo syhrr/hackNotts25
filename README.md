@@ -1,9 +1,8 @@
-# hackNotts25
-Our first hackathon
-
-#  Medieval D&D Chatbot
+# Medieval D&D Chatbot
 
 A medieval fantasy Dungeon & Dragons chatbot powered by OpenAI GPT-4 and FastAPI. Experience interactive storytelling with dice rolls, combat, character progression, and more!
+
+SEEMS TO WORK ON LINUX BETTER THAN WINDOWS
 
 ## Features
 
@@ -20,19 +19,24 @@ A medieval fantasy Dungeon & Dragons chatbot powered by OpenAI GPT-4 and FastAPI
 ```
 medieval-dnd-chatbot/
 ├── backend/
-│   ├── main.py              # FastAPI backend with OpenAI integration
+│   ├── main.py              # FastAPI backend with Mock DM
 │   ├── requirements.txt     # Python dependencies
-│   ├── .env                 # Environment variables (create this)
+│   ├── .env.example         # Environment template
 │   └── session_state.json   # Auto-generated save file
 │
 ├── frontend/
-│   └── index.html           # Complete frontend (HTML/CSS/JS)
+│   └── index.html           # Medieval tome interface
 │
+├── start.bat                # One-click startup (Windows)
+├── start.sh                 # One-click startup (Mac/Linux)
+├── stop.bat                 # Stop all servers (Windows)
+├── setup.bat                # Initial setup (Windows)
+├── setup.sh                 # Initial setup (Mac/Linux)
 ├── .gitignore              # Git ignore file
 └── README.md               # This file
 ```
 
-##  Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -48,40 +52,40 @@ git clone <your-repo-url>
 cd medieval-dnd-chatbot
 ```
 
-2. **Create a virtual environment (recommended):**
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
+2. **Run the setup script (creates virtual environment and installs dependencies):**
 
-# Mac/Linux
-python3 -m venv venv
-source venv/bin/activate
+**Windows:**
+```bash
+setup.bat
 ```
 
-3. **Navigate to backend and install dependencies:**
+**Mac/Linux:**
 ```bash
-cd backend
-pip install -r requirements.txt
+chmod +x setup.sh
+./setup.sh
 ```
 
-4. **Create `.env` file:**
-```bash
-# Windows (Command Prompt)
-copy .env.example .env
+This script will:
+- Create a fresh virtual environment (venv)
+- Install all Python dependencies
+- Create a `.env` file from the template
 
-# Mac/Linux or Windows (PowerShell)
-cp .env.example .env
+> **Note:** Each person creates their own `venv` folder - it's not in the repository!
+
+3. **Start the game:**
+
+**Windows:**
+```bash
+start.bat
 ```
 
-> **Note:** The current version uses a **Mock DM** (no API needed)! If you want to use real GPT-4, add your OpenAI API key to the `.env` file.
-
-5. **Run the backend:**
+**Mac/Linux:**
 ```bash
-python main.py
+chmod +x start.sh
+./start.sh
 ```
 
-The backend will start on `http://localhost:8000`
+The game will open automatically in your browser! 🎮
 
 ### Frontend Setup
 
@@ -100,7 +104,7 @@ The backend will start on `http://localhost:8000`
    - "I try to persuade the guard"
    - "I search for treasure"
 
-##  Game Mechanics
+## Game Mechanics
 
 ### Dice Rolling
 The system automatically handles D&D dice notation:
@@ -121,7 +125,7 @@ The DM automatically calculates:
 - Damage taken by player
 - Enemy behavior and tactics
 
-##  API Endpoints
+## API Endpoints
 
 ### `GET /`
 Health check for the backend
@@ -166,7 +170,7 @@ Get player inventory
 ### `GET /stats`
 Get player attributes
 
-##  Customization
+## Customization
 
 ### Change Character Starting Stats
 Edit the `new_state()` function in `backend/main.py`:
@@ -188,7 +192,7 @@ Edit the `DM_PROMPT` in `backend/main.py` to change how the DM responds
 ### Style the Frontend
 Edit the CSS in `frontend/index.html` to customize colors, fonts, and layout
 
-##  Troubleshooting
+## Troubleshooting
 
 ### CORS Errors
 Make sure CORS is enabled in `backend/main.py` (already included)
@@ -206,22 +210,3 @@ Make sure CORS is enabled in `backend/main.py` (already included)
 ### State Not Saving
 - Ensure backend has write permissions in its directory
 - Check `session_state.json` is being created
-
-##  Technologies Used
-
-- **Backend**: FastAPI, Python 3.8+
-- **AI**: OpenAI GPT-4
-- **Frontend**: Vanilla JavaScript, HTML5, CSS3
-- **Styling**: Custom medieval theme with gradients and animations
-
-##  License
-
-MIT License - feel free to use for your hackathon!
-
-##  Credits
-
-
-
----
-
-**Good luck with your hackathon! May the dice roll in your favor!** 
