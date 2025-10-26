@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚔️ Medieval D&D Chatbot</title>
+    <title>📖 The Adventurer's Tome</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,111 +14,290 @@
 
         body {
             font-family: 'Cinzel', 'Georgia', serif;
-            background: linear-gradient(135deg, #1a0f0a 0%, #3d2817 100%);
-            color: #f4e4c1;
+            background: #2b1810;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(101, 67, 33, 0.3) 0%, transparent 50%);
+            color: #3d2817;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
+        .tome-container {
+            max-width: 1100px;
             width: 100%;
-            background: linear-gradient(180deg, #2a1810 0%, #1f1108 100%);
-            border: 3px solid #8b6914;
+            background: linear-gradient(135deg, #f4e4c1 0%, #e8d4a8 50%, #d4c5a0 100%);
+            border: 20px solid #5c3a1a;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 60px rgba(139, 105, 20, 0.1);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                inset 0 0 100px rgba(92, 58, 26, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
             overflow: hidden;
         }
 
-        .header {
-            background: linear-gradient(90deg, #5a3a1a 0%, #8b6914 50%, #5a3a1a 100%);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #d4af37;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        /* Book binding effect */
+        .tome-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(90deg, 
+                rgba(92, 58, 26, 0.4) 0%, 
+                rgba(139, 69, 19, 0.6) 50%, 
+                rgba(92, 58, 26, 0.4) 100%);
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.5),
+                inset 2px 0 3px rgba(0, 0, 0, 0.3),
+                inset -2px 0 3px rgba(0, 0, 0, 0.3);
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 10;
         }
 
-        .header h1 {
+        /* Decorative corners */
+        .corner-ornament {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #8b6914;
+            opacity: 0.6;
+        }
+
+        .corner-ornament.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 10px 0 0 0;
+        }
+
+        .corner-ornament.top-right {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 10px 0 0;
+        }
+
+        .corner-ornament.bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 10px;
+        }
+
+        .corner-ornament.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 10px 0;
+        }
+
+        .tome-pages {
+            display: flex;
+            min-height: 700px;
+        }
+
+        /* Left page */
+        .page-left {
+            flex: 1;
+            padding: 40px 30px;
+            background: linear-gradient(90deg, #f9f3e6 0%, #f4ead8 100%);
+            border-right: 2px solid rgba(139, 105, 20, 0.3);
+            position: relative;
+        }
+
+        /* Paper texture */
+        .page-left::before,
+        .page-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 105, 20, 0.03) 2px, rgba(139, 105, 20, 0.03) 4px);
+            pointer-events: none;
+        }
+
+        .tome-title {
+            font-family: 'Uncial Antiqua', 'Cinzel', serif;
             font-size: 2.5em;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
-            color: #ffd700;
+            text-align: center;
+            color: #5c3a1a;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(139, 105, 20, 0.3);
             letter-spacing: 2px;
         }
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid #8b6914;
-            flex-wrap: wrap;
-            gap: 10px;
+        .tome-subtitle {
+            text-align: center;
+            font-size: 0.9em;
+            color: #8b6914;
+            margin-bottom: 30px;
+            font-style: italic;
+            letter-spacing: 3px;
         }
 
-        .stat {
+        .character-sheet {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid #8b6914;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 10px rgba(139, 105, 20, 0.1);
+        }
+
+        .character-sheet h3 {
+            font-family: 'MedievalSharp', 'Cinzel', serif;
+            color: #5c3a1a;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #8b6914;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
-            background: rgba(139, 105, 20, 0.2);
-            border-radius: 8px;
-            border: 1px solid #8b6914;
+            padding: 8px 12px;
+            background: rgba(244, 228, 193, 0.6);
+            border: 1px solid #c9a861;
+            border-radius: 5px;
         }
 
         .stat-label {
-            font-size: 0.8em;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 600;
+            color: #5c3a1a;
+            font-size: 0.9em;
         }
 
         .stat-value {
-            font-size: 1.5em;
             font-weight: bold;
-            color: #ffd700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            color: #8b4513;
+            font-size: 1.1em;
+        }
+
+        .hp-display {
+            grid-column: 1 / -1;
+            background: rgba(139, 0, 0, 0.1);
+            border: 2px solid #8b0000;
         }
 
         .hp-bar {
-            width: 120px;
-            height: 10px;
-            background: #3d0000;
-            border-radius: 5px;
+            width: 100%;
+            height: 12px;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 6px;
             overflow: hidden;
-            margin-top: 5px;
+            margin-top: 8px;
             border: 1px solid #8b0000;
         }
 
         .hp-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%);
+            background: linear-gradient(90deg, #dc143c 0%, #8b0000 100%);
             transition: width 0.5s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
-        .chat-container {
-            height: 500px;
+        .illuminated-letter {
+            float: left;
+            font-size: 4em;
+            line-height: 0.8;
+            margin: 5px 10px 0 0;
+            font-family: 'Uncial Antiqua', serif;
+            color: #8b0000;
+            text-shadow: 2px 2px 4px rgba(139, 105, 20, 0.4);
+        }
+
+        .lore-text {
+            font-size: 0.95em;
+            line-height: 1.8;
+            color: #3d2817;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        /* Right page - Chronicle */
+        .page-right {
+            flex: 1;
+            padding: 40px 30px;
+            background: linear-gradient(90deg, #f4ead8 0%, #f9f3e6 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .chronicle-title {
+            font-family: 'MedievalSharp', 'Cinzel', serif;
+            font-size: 1.8em;
+            color: #5c3a1a;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px double #8b6914;
+            padding-bottom: 10px;
+        }
+
+        .chat-scroll {
+            flex: 1;
             overflow-y: auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            background-image: 
-                linear-gradient(rgba(139, 105, 20, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 105, 20, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .message {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid #c9a861;
+            border-radius: 10px;
             margin-bottom: 20px;
-            animation: fadeIn 0.5s ease;
+            box-shadow: inset 0 2px 15px rgba(139, 105, 20, 0.1);
         }
 
-        @keyframes fadeIn {
+        /* Custom scrollbar */
+        .chat-scroll::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .chat-scroll::-webkit-scrollbar-track {
+            background: rgba(139, 105, 20, 0.1);
+            border-radius: 6px;
+        }
+
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #8b6914 0%, #c9a861 100%);
+            border-radius: 6px;
+            border: 2px solid rgba(244, 228, 193, 0.5);
+        }
+
+        .chat-scroll::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #c9a861 0%, #8b6914 100%);
+        }
+
+        .entry {
+            margin-bottom: 20px;
+            animation: fadeInEntry 0.6s ease;
+        }
+
+        @keyframes fadeInEntry {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -125,101 +305,128 @@
             }
         }
 
-        .message.player {
-            text-align: right;
-        }
-
-        .message-content {
-            display: inline-block;
-            padding: 12px 18px;
-            border-radius: 10px;
-            max-width: 80%;
-            line-height: 1.6;
-        }
-
-        .message.dm .message-content {
-            background: linear-gradient(135deg, #4a2c1a 0%, #3d2414 100%);
-            border: 2px solid #8b6914;
-            border-left: 4px solid #d4af37;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            text-align: left;
-        }
-
-        .message.player .message-content {
-            background: linear-gradient(135deg, #1a4a3d 0%, #143d2e 100%);
-            border: 2px solid #2d8659;
-            border-right: 4px solid #3fa86f;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .message-label {
-            font-size: 0.85em;
-            opacity: 0.7;
-            margin-bottom: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .action-result {
-            background: rgba(212, 175, 55, 0.1);
-            border-left: 3px solid #d4af37;
-            padding: 8px 12px;
-            margin-top: 8px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-
-        .input-container {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border-top: 2px solid #8b6914;
+        .entry-header {
             display: flex;
+            align-items: center;
+            margin-bottom: 8px;
             gap: 10px;
         }
 
-        .input-field {
-            flex: 1;
+        .entry-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(2px 2px 3px rgba(139, 105, 20, 0.3));
+        }
+
+        .entry-label {
+            font-family: 'MedievalSharp', serif;
+            font-weight: bold;
+            color: #5c3a1a;
+            font-size: 1.1em;
+        }
+
+        .entry.dm .entry-label {
+            color: #8b0000;
+        }
+
+        .entry-content {
             padding: 15px;
-            background: rgba(244, 228, 193, 0.1);
-            border: 2px solid #8b6914;
+            background: rgba(255, 255, 255, 0.7);
+            border-left: 4px solid #8b6914;
+            border-radius: 5px;
+            line-height: 1.7;
+            color: #3d2817;
+            font-size: 0.95em;
+            box-shadow: 2px 2px 8px rgba(139, 105, 20, 0.15);
+            position: relative;
+        }
+
+        .entry.player .entry-content {
+            background: rgba(212, 175, 55, 0.2);
+            border-left-color: #d4af37;
+            margin-left: 20px;
+        }
+
+        .entry.dm .entry-content {
+            background: rgba(139, 0, 0, 0.05);
+            border-left-color: #8b0000;
+        }
+
+        .action-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px dashed #8b6914;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #5c3a1a;
+        }
+
+        /* Input quill area */
+        .quill-area {
+            background: rgba(255, 255, 255, 0.5);
+            border: 3px solid #8b6914;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: inset 0 2px 10px rgba(139, 105, 20, 0.1);
+        }
+
+        .quill-label {
+            font-family: 'MedievalSharp', serif;
+            font-size: 0.9em;
+            color: #5c3a1a;
+            margin-bottom: 8px;
+            display: block;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #c9a861;
             border-radius: 8px;
-            color: #f4e4c1;
+            color: #3d2817;
             font-size: 1em;
-            font-family: 'Georgia', serif;
+            font-family: 'Cinzel', serif;
             outline: none;
             transition: all 0.3s ease;
+            margin-bottom: 10px;
         }
 
         .input-field:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            border-color: #8b6914;
+            box-shadow: 0 0 15px rgba(139, 105, 20, 0.3);
+            background: #fff;
         }
 
         .input-field::placeholder {
-            color: rgba(244, 228, 193, 0.5);
+            color: rgba(61, 40, 23, 0.5);
+            font-style: italic;
         }
 
         .send-btn {
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #8b6914 0%, #d4af37 100%);
-            border: none;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #8b6914 0%, #c9a861 50%, #8b6914 100%);
+            border: 3px solid #5c3a1a;
             border-radius: 8px;
-            color: #1a0f0a;
+            color: #f4e4c1;
             font-weight: bold;
-            font-size: 1em;
+            font-size: 1.1em;
+            font-family: 'MedievalSharp', 'Cinzel', serif;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .send-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.6);
-            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            box-shadow: 0 6px 15px rgba(139, 105, 20, 0.5);
+            background: linear-gradient(135deg, #c9a861 0%, #d4af37 50%, #c9a861 100%);
         }
 
         .send-btn:active {
@@ -227,16 +434,17 @@
         }
 
         .send-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
         .loading {
             text-align: center;
-            padding: 20px;
-            color: #d4af37;
+            padding: 15px;
+            color: #8b6914;
             font-style: italic;
+            font-family: 'Cinzel', serif;
         }
 
         .loading::after {
@@ -250,96 +458,175 @@
             60%, 100% { content: '...'; }
         }
 
-        .chat-container::-webkit-scrollbar {
-            width: 10px;
+        /* Decorative divider */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #8b6914 50%, transparent 100%);
+            margin: 20px 0;
+            position: relative;
         }
 
-        .chat-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
+        .divider::before {
+            content: '⚔';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #f4e4c1;
+            padding: 0 10px;
+            color: #8b6914;
+            font-size: 1.2em;
         }
 
-        .chat-container::-webkit-scrollbar-thumb {
-            background: #8b6914;
-            border-radius: 5px;
-        }
+        @media (max-width: 1024px) {
+            .tome-pages {
+                flex-direction: column;
+            }
 
-        .chat-container::-webkit-scrollbar-thumb:hover {
-            background: #d4af37;
+            .page-left {
+                border-right: none;
+                border-bottom: 2px solid rgba(139, 105, 20, 0.3);
+            }
+
+            .tome-container::before {
+                left: 0;
+                right: 0;
+                top: 50%;
+                bottom: auto;
+                width: auto;
+                height: 40px;
+                background: linear-gradient(180deg, 
+                    rgba(92, 58, 26, 0.4) 0%, 
+                    rgba(139, 69, 19, 0.6) 50%, 
+                    rgba(92, 58, 26, 0.4) 100%);
+                transform: translateY(-50%);
+            }
+
+            .tome-title {
+                font-size: 2em;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
+            body {
+                padding: 10px;
             }
-            
-            .stats-bar {
-                font-size: 0.9em;
+
+            .tome-container {
+                border-width: 10px;
             }
-            
-            .chat-container {
-                height: 400px;
+
+            .page-left, .page-right {
+                padding: 20px 15px;
+            }
+
+            .tome-title {
+                font-size: 1.5em;
+            }
+
+            .chat-scroll {
+                max-height: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚔️ Medieval D&D Quest ⚔️</h1>
-        </div>
+    <div class="tome-container">
+        <div class="corner-ornament top-left"></div>
+        <div class="corner-ornament top-right"></div>
+        <div class="corner-ornament bottom-left"></div>
+        <div class="corner-ornament bottom-right"></div>
 
-        <div class="stats-bar">
-            <div class="stat">
-                <span class="stat-label">🧙 Hero</span>
-                <span class="stat-value" id="player-name">Hero</span>
-            </div>
-            <div class="stat">
-                <span class="stat-label">⚔️ Class</span>
-                <span class="stat-value" id="player-class">Fighter</span>
-            </div>
-            <div class="stat">
-                <span class="stat-label">❤️ HP</span>
-                <span class="stat-value" id="player-hp">20/20</span>
-                <div class="hp-bar">
-                    <div class="hp-fill" id="hp-fill" style="width: 100%"></div>
+        <div class="tome-pages">
+            <!-- Left Page - Character Sheet -->
+            <div class="page-left">
+                <h1 class="tome-title">⚔ The Adventurer's Tome ⚔</h1>
+                <p class="tome-subtitle">~ A Chronicle of Heroic Deeds ~</p>
+
+                <div class="character-sheet">
+                    <h3>⚜ Character Record ⚜</h3>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">🧙 Name:</span>
+                            <span class="stat-value" id="player-name">Hero</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">⚔ Class:</span>
+                            <span class="stat-value" id="player-class">Fighter</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">🏰 Race:</span>
+                            <span class="stat-value" id="player-race">Human</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">⭐ Experience:</span>
+                            <span class="stat-value" id="player-xp">0 XP</span>
+                        </div>
+                        <div class="stat-item hp-display">
+                            <span class="stat-label">❤ Life Force:</span>
+                            <span class="stat-value" id="player-hp">20/20</span>
+                        </div>
+                        <div class="hp-bar" style="grid-column: 1 / -1;">
+                            <div class="hp-fill" id="hp-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="lore-text">
+                    <span class="illuminated-letter">W</span>elcome, brave adventurer, to thy personal chronicle. Within these enchanted pages, the tale of thy heroic journey shall be inscribed for all eternity. May thy blade stay sharp, thy wit stay keen, and thy courage never falter in the face of darkness.
+                </div>
+
+                <div class="lore-text">
+                    The realm awaits thy command. Speak thy intentions clearly, and the fates shall weave thy destiny. Whether thou seekest glory in combat, wisdom in exploration, or fortune in clever dealings, all paths are open to those bold enough to walk them.
                 </div>
             </div>
-            <div class="stat">
-                <span class="stat-label">⭐ XP</span>
-                <span class="stat-value" id="player-xp">0</span>
-            </div>
-        </div>
 
-        <div class="chat-container" id="chat-container">
-            <div class="message dm">
-                <div class="message-label">🎲 Dungeon Master</div>
-                <div class="message-content">
-                    Welcome, brave adventurer! You stand at the gates of a medieval village as the sun sets behind ancient mountains. The smell of woodsmoke drifts from chimneys, and you hear the distant clang of a blacksmith's hammer. What do you do?
+            <!-- Right Page - Adventure Chronicle -->
+            <div class="page-right">
+                <h2 class="chronicle-title">📜 Chronicle of Adventures 📜</h2>
+
+                <div class="chat-scroll" id="chat-scroll">
+                    <div class="entry dm">
+                        <div class="entry-header">
+                            <span class="entry-icon">🎲</span>
+                            <span class="entry-label">The Dungeon Master Speaks</span>
+                        </div>
+                        <div class="entry-content">
+                            Welcome, brave adventurer! Thou standest at the gates of a medieval village as the sun sets behind ancient mountains. The smell of woodsmoke drifts from chimneys, and thou hearest the distant clang of a blacksmith's hammer. The village folk speak in hushed tones of strange happenings in the nearby forest. What dost thou do?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quill-area">
+                    <label class="quill-label">✒ Inscribe Thy Action ✒</label>
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        id="input-field" 
+                        placeholder="Describe thy heroic deed..."
+                        autocomplete="off"
+                    >
+                    <button class="send-btn" id="send-btn">⚔ Commit to Fate ⚔</button>
                 </div>
             </div>
-        </div>
-
-        <div class="input-container">
-            <input 
-                type="text" 
-                class="input-field" 
-                id="input-field" 
-                placeholder="Describe your action..."
-                autocomplete="off"
-            >
-            <button class="send-btn" id="send-btn">Send</button>
         </div>
     </div>
 
     <script>
         const API_URL = 'http://localhost:8000';
-        const chatContainer = document.getElementById('chat-container');
+        const chatScroll = document.getElementById('chat-scroll');
         const inputField = document.getElementById('input-field');
         const sendBtn = document.getElementById('send-btn');
 
         const playerNameEl = document.getElementById('player-name');
         const playerClassEl = document.getElementById('player-class');
+        const playerRaceEl = document.getElementById('player-race');
         const playerHpEl = document.getElementById('player-hp');
         const playerXpEl = document.getElementById('player-xp');
         const hpFillEl = document.getElementById('hp-fill');
@@ -349,49 +636,63 @@
         function updatePlayerStats(player) {
             playerNameEl.textContent = player.name;
             playerClassEl.textContent = player.class;
+            playerRaceEl.textContent = player.race;
             playerHpEl.textContent = `${player.hp}/${player.max_hp}`;
-            playerXpEl.textContent = player.xp;
+            playerXpEl.textContent = `${player.xp} XP`;
             
             const hpPercentage = (player.hp / player.max_hp) * 100;
             hpFillEl.style.width = `${hpPercentage}%`;
         }
 
-        function addMessage(type, content, actionResult = null) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
+        function addEntry(type, content, actionResult = null) {
+            const entryDiv = document.createElement('div');
+            entryDiv.className = `entry ${type}`;
             
-            const label = type === 'dm' ? '🎲 Dungeon Master' : '⚔️ You';
+            const icon = type === 'dm' ? '🎲' : '⚔';
+            const label = type === 'dm' ? 'The Dungeon Master Speaks' : 'Thy Action';
             
             let html = `
-                <div class="message-label">${label}</div>
-                <div class="message-content">${content}</div>
+                <div class="entry-header">
+                    <span class="entry-icon">${icon}</span>
+                    <span class="entry-label">${label}</span>
+                </div>
+                <div class="entry-content">${content}</div>
             `;
             
             if (actionResult) {
                 let resultText = '';
                 if (actionResult.roll !== undefined) {
-                    resultText = `🎲 Roll: ${actionResult.roll}`;
+                    resultText = `🎲 Die Roll: ${actionResult.roll}`;
+                    if (actionResult.roll_reason) {
+                        resultText += ` (${actionResult.roll_reason})`;
+                    }
                 }
                 if (actionResult.player_hp !== undefined) {
-                    resultText += ` | HP: ${actionResult.player_hp}`;
+                    resultText += ` | ❤ Life Force: ${actionResult.player_hp}`;
+                }
+                if (actionResult.damage_taken !== undefined) {
+                    resultText += ` | 💔 Damage Suffered: ${actionResult.damage_taken}`;
+                }
+                if (actionResult.xp_gained !== undefined) {
+                    resultText += ` | ⭐ Experience Gained: ${actionResult.xp_gained}`;
                 }
                 if (resultText) {
                     html += `<div class="action-result">${resultText}</div>`;
                 }
             }
             
-            messageDiv.innerHTML = html;
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            entryDiv.innerHTML = html;
+            chatScroll.appendChild(entryDiv);
+            chatScroll.scrollTop = chatScroll.scrollHeight;
         }
 
         function showLoading() {
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'loading';
             loadingDiv.id = 'loading-indicator';
-            loadingDiv.textContent = 'The Dungeon Master contemplates';
-            chatContainer.appendChild(loadingDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            loadingDiv.textContent = 'The Dungeon Master contemplates thy action';
+            chatScroll.appendChild(loadingDiv);
+            chatScroll.scrollTop = chatScroll.scrollHeight;
         }
 
         function hideLoading() {
@@ -407,7 +708,7 @@
             isProcessing = true;
             sendBtn.disabled = true;
             
-            addMessage('player', command);
+            addEntry('player', command);
             inputField.value = '';
             showLoading();
             
@@ -421,18 +722,18 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error('Failed to get response from DM');
+                    throw new Error('The mystical connection hath been disrupted');
                 }
                 
                 const data = await response.json();
                 hideLoading();
                 
-                addMessage('dm', data.dm_text, data.result);
+                addEntry('dm', data.dm_text, data.result);
                 updatePlayerStats(data.player);
                 
             } catch (error) {
                 hideLoading();
-                addMessage('dm', `⚠️ Error: ${error.message}. The mystical connection was disrupted...`);
+                addEntry('dm', `⚠ Alas! ${error.message}. The arcane forces resist thy command...`);
             } finally {
                 isProcessing = false;
                 sendBtn.disabled = false;
