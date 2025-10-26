@@ -2,6 +2,8 @@
 
 A medieval fantasy Dungeon & Dragons chatbot powered by OpenAI GPT-4 and FastAPI. Experience interactive storytelling with dice rolls, combat, character progression, and more!
 
+SEEMS TO WORK ON LINUX BETTER THAN WINDOWS
+
 ## Features
 
 - **AI Dungeon Master**: GPT-4 powered narrative and decision-making
