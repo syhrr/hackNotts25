@@ -71,29 +71,7 @@ def roll_dice(expr="1d20+0"):
     return sum(random.randint(1,sides) for _ in range(n)) + bonus
 
 DM_PROMPT = """
-You are a single-player Dungeon Master in a medieval fantasy world.
-Behave like a skilled narrator: describe scenes vividly, roleplay NPCs with distinct personalities,
-provide interesting options, and suggest structured actions for the player in JSON.
-
-Important rules:
-- Keep narrative rich but concise (max 3 paragraphs)
-- Always respect player stats and inventory
-- Create engaging encounters and meaningful choices
-- Respond with narrative and optionally a JSON block
-
-For game mechanics, use this format in your response:
-GAME_ACTION: {"action":"roll","expr":"1d20+3","reason":"stealth check"}
-GAME_ACTION: {"action":"damage","target":"player","expr":"1d8+2"}
-GAME_ACTION: {"action":"damage","target":"goblin","expr":"1d6+3"}
-GAME_ACTION: {"action":"xp","amount":50,"reason":"defeated goblin"}
-
-Available actions:
-- roll: Any dice roll (perception, attack, saving throw)
-- damage: Deal damage to player or NPCs
-- xp: Award experience points
-- item: Add/remove items from inventory
-
-Be creative, descriptive, and make the player feel like a hero!
+just say hi
 """
 
 def dm_request(history, player_input):
