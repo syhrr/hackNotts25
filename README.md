@@ -1,11 +1,11 @@
 # hackNotts25
 Our first hackathon
 
-# ⚔️ Medieval D&D Chatbot
+#  Medieval D&D Chatbot
 
 A medieval fantasy Dungeon & Dragons chatbot powered by OpenAI GPT-4 and FastAPI. Experience interactive storytelling with dice rolls, combat, character progression, and more!
 
-## 🎮 Features
+## Features
 
 - **AI Dungeon Master**: GPT-4 powered narrative and decision-making
 - **Real-time Character Stats**: Track HP, XP, inventory, and attributes
@@ -15,7 +15,7 @@ A medieval fantasy Dungeon & Dragons chatbot powered by OpenAI GPT-4 and FastAPI
 - **Beautiful Medieval UI**: Scroll-themed interface with golden accents
 - **Responsive Design**: Works on desktop and mobile
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 medieval-dnd-chatbot/
@@ -32,7 +32,7 @@ medieval-dnd-chatbot/
 └── README.md               # This file
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -100,7 +100,7 @@ The backend will start on `http://localhost:8000`
    - "I try to persuade the guard"
    - "I search for treasure"
 
-## 🎲 Game Mechanics
+##  Game Mechanics
 
 ### Dice Rolling
 The system automatically handles D&D dice notation:
@@ -121,7 +121,7 @@ The DM automatically calculates:
 - Damage taken by player
 - Enemy behavior and tactics
 
-## 🛠️ API Endpoints
+##  API Endpoints
 
 ### `GET /`
 Health check for the backend
@@ -166,7 +166,7 @@ Get player inventory
 ### `GET /stats`
 Get player attributes
 
-## 🎨 Customization
+##  Customization
 
 ### Change Character Starting Stats
 Edit the `new_state()` function in `backend/main.py`:
@@ -188,7 +188,7 @@ Edit the `DM_PROMPT` in `backend/main.py` to change how the DM responds
 ### Style the Frontend
 Edit the CSS in `frontend/index.html` to customize colors, fonts, and layout
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### CORS Errors
 Make sure CORS is enabled in `backend/main.py` (already included)
@@ -207,7 +207,7 @@ Make sure CORS is enabled in `backend/main.py` (already included)
 - Ensure backend has write permissions in its directory
 - Check `session_state.json` is being created
 
-## 📚 Technologies Used
+##  Technologies Used
 
 - **Backend**: FastAPI, Python 3.8+
 - **AI**: OpenAI GPT-4
@@ -224,4 +224,4 @@ MIT License - feel free to use for your hackathon!
 
 ---
 
-**Good luck with your hackathon! May the dice roll in your favor!** 🎲⚔️
+**Good luck with your hackathon! May the dice roll in your favor!** 
